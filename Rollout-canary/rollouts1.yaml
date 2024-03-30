@@ -1,35 +1,12 @@
+
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: canary
+  name: rollouts
 spec:
   replicas: 2
-  revisionHistoryLimit: 1
-  selector:
-    matchLabels:
-      app: canary
-  template:
-    metadata:
-      labels:
-        app: canary
-    spec:
-      containers:
-      - name: canary
-        image: saaddevops/webapp
-        imagePullPolicy: Always
-        ports:
-        - name: http
-          containerPort: 8080
-          protocol: TCP
-        resources:
-          requests:
-            memory: 32Mi
-            cpu: 5m
-      imagePullSecrets:
-      - name: my-registry-secret      
   strategy:
     canary:
-      canaryService: canary-demo-preview
       steps:
       - setWeight: 20
       - pause: {}
@@ -39,3 +16,25 @@ spec:
       - pause: {duration: 10}
       - setWeight: 80
       - pause: {duration: 10}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: rollouts
+  template:
+    metadata:
+      labels:
+        app: rollouts
+    spec:
+      containers:
+      - name: rollouts
+        image: saaddevops/webapp
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
+      imagePullSecrets:
+      - name: my-registry-secret
