@@ -1,10 +1,4 @@
-# Simple Notes App
-This is a simple notes app built with React and Django.
-
-## Requirements
-1. Python 3.9
-2. Node.js
-3. React
+## Web App deployment using argocd pipeline 
 
 ## Installation
 1. Clone the repository
@@ -63,4 +57,40 @@ minikube service argocd-server -n argocd
 
 ##  Argocd Rollout using canary strategy
 
-1.
+1. Installed argocd rollouts
+```
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+Install CLI:
+```
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+rm argocd-linux-amd64
+```
+
+2. Implemented rollout of first version of app:
+   
+![rolloutversion1](https://github.com/thisissaad/django-notes-app/assets/162448656/239b5cab-dc99-476b-9623-a90293b7723a)
+
+
+![rolloutguiversion1](https://github.com/thisissaad/django-notes-app/assets/162448656/66431ccb-791e-4e9c-9666-d1c12e601eab)
+
+3. Created new image and pushed to DockerHub
+
+![dockerpushversion2](https://github.com/thisissaad/django-notes-app/assets/162448656/57f8c21d-cc4f-4bec-9557-385dc59662bb)
+
+4. Updated the new image in rollout using below command:
+```
+kubectl argo rollouts set image rollouts rollouts=saaddevops/webappv2
+```
+5. Second rollout deployed using canary strategy:
+
+
+![rolloutversion2](https://github.com/thisissaad/django-notes-app/assets/162448656/e091e60b-08aa-49c8-888c-5446e1348d8d)
+
+
+![rolloutguiversion21](https://github.com/thisissaad/django-notes-app/assets/162448656/b97d0f34-a778-4310-b908-0211729361f0)
+
+
+Thus we have successfully used canary strategy to rollout our versions.
