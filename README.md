@@ -19,6 +19,10 @@ docker build -t saaddevops/webapp .
 
 3. Pushed the image to DockerHub
 
+```
+docker push saaddevops/webapp
+```
+
 ![dockerpush](https://github.com/thisissaad/django-notes-app/assets/162448656/c8363bac-eaa8-49ac-9586-e41e516aca6f)
 
 
@@ -42,9 +46,21 @@ kubectl create secret docker-registry my-registry-secret \
 
 4. Wrote deployement Yaml manifest to use docker image deployed on dockerhub
 
-5. Deployed the pod which pulled image from DockerHub
+
+6. Deployed the pod which pulled image from DockerHub
 
 ![dockerpull1](https://github.com/thisissaad/django-notes-app/assets/162448656/a4dc9135-d291-4e85-9e07-bcd6302d6cb1)
 
-7.
-   
+7. Deployed the Yaml Manifest using Argocd and monitored its health
+
+Run a command In CLI to access argocd on IP address through API server:
+```
+minikube service argocd-server -n argocd
+```
+
+![argocd1](https://github.com/thisissaad/django-notes-app/assets/162448656/da24d2fd-6901-45ab-b56f-ec0dbeba2ce9)
+
+
+##  Argocd Rollout using canary strategy
+
+1.
