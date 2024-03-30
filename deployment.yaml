@@ -16,7 +16,10 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: nginx:1.14.2
+        image: saaddevops/webapp
         ports:
         - containerPort: 80
+      imagePullSecrets:
+      - name: my-registry-secret       
+    
 
