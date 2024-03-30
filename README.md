@@ -19,7 +19,7 @@ docker build -t notes-app .
 
 3. Run the app
 ```
-docker run -d -p 8000:8000 notes-app:latest
+![dockerpush](https://github.com/thisissaad/django-notes-app/assets/162448656/c8363bac-eaa8-49ac-9586-e41e516aca6f)
 ```
 
 ## Nginx
