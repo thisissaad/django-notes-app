@@ -1,4 +1,4 @@
-## Web App deployment using argocd pipeline 
+## Web App deployment using argocd canary strategy
 
 ## Installation
 1. Clone the repository
@@ -94,3 +94,32 @@ kubectl argo rollouts set image rollouts rollouts=saaddevops/webappv2
 
 
 Thus we have successfully used canary strategy to rollout our versions.
+
+## Cleaning resources
+
+1.Remove the HTTP route.
+```
+kubectl delete httproute argo-rollouts-http-route
+```
+2.Remove the Argo Rollout.
+```
+kubectl delete rollout rollouts
+```
+3.Remove the stable and canary services.
+```
+kubectl delete services argo-rollouts-canary-service argo-rollouts-stable-service
+```
+4.Remove the cluster role for the Argo Rollouts pod.
+```
+kubectl delete clusterrole gateway-controller-role -n argo-rollouts
+```
+5.Remove the cluster role binding.
+```
+kubectl delete clusterrolebinding gateway-admin
+```
+6.Remove Argo Rollouts.
+```
+kubectl delete -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
+kubectl delete namespace argo-rollouts
+```
+
