@@ -8,12 +8,7 @@ pipeline {
                 git url:"https://github.com/thisissaad/django-notes-app.git", branch: "main"
             }
         }
-        stage("Build"){
-            steps {
-                echo "Building the image"
-               
-            }
-        }
+       
         stage("Push to Docker Hub"){
             steps {
                 echo "Pushing the image to docker hub"
